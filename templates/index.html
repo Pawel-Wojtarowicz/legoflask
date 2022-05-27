@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lego Flask application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <div><img src="https://raw.githubusercontent.com/Pawel-Wojtarowicz/Python/master/Flask_Lego/logo2.png"></div>
+    <br>
+    <form action="sets" , method="post">
+        {% for message in get_flashed_messages()%}
+        <p> {{message }}<br> </p>
+        {% endfor %}
+        <input type="text" name="lego_set_input">
+        <input type="submit" value="Szukaj" id="find_sets">
+        <br>
+        <br>
+        {% for key in alternativesDict %}
+        <img src="{{key}}">
+        <br><br>
+        {% endfor %}
+    </form>
+</body>
+
+</html>
