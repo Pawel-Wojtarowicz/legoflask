@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, flash
+from os import link
+from flask import Flask, render_template, request, flash, jsonify
 import rebrick
 import json
 
 app = Flask(__name__)
 app.secret_key = "super_secret_key"
+app.jinja_env.filters['zip'] = zip
 
 
 @app.route('/')
@@ -21,13 +23,14 @@ def sets():
     alternatives_sets = json.loads(response_sets.read())
     provided_lego_set_name = json.loads(response_name.read())
 
-    alternativesDict = {}
+    img_set = []
+    link_set = []
     for key, values in alternatives_sets.items():
         if key == 'results':
             for url in values:
-                alternativesDict[url['moc_img_url']] = url['moc_url']
+                img_set.append(url['moc_img_url'])
+                link_set.append(url['moc_url'])
 
-    flash(f"Alternatywne zestawy dla: {provided_lego_set} - {provided_lego_set_name['name']}")
-    return render_template('index.html', alternativesDict=alternativesDict)
-
-
+    flash(
+        f"Alternatywne zestawy dla: {provided_lego_set} - {provided_lego_set_name['name']}")
+    return render_template('index.html', img_set=img_set, link_set=link_set)

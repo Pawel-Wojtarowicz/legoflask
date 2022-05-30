@@ -18,10 +18,14 @@
         <input type="submit" value="Szukaj" id="find_sets">
         <br>
         <br>
-        {% for key in alternativesDict %}
-        <img src="{{key}}">
-        <br><br>
+        {% for key, value in img_set|zip(link_set) %}
+        <img src="{{ key }}">
+        <br>
+        <a href="{{ value }}">{{value}}</a>
+        <br>
+        <br>
         {% endfor %}
+        <br>
     </form>
 </body>
 
